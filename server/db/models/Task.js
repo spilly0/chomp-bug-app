@@ -12,9 +12,6 @@ const Task = db.define('task', {
   description: {
     type: Sequelize.TEXT
   },
-  createdOn: {
-    type: Sequelize.DATE
-  },
   createdBy: {
     type: Sequelize.INTEGER
   }

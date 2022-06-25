@@ -2,17 +2,14 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Project = db.define('project', {
-  createdOn: {
-    type: Sequelize.DATE,
-    defaultValue: new Date()
+  title: {
+    type: Sequelize.TEXT,
+    allowNull: false
   },
   startDate: {
     type: Sequelize.DATE
   },
   dueDate: {
-    type: Sequelize.DATE
-  },
-  lastModifiedDate: {
     type: Sequelize.DATE
   },
   lastModifiedBy: {

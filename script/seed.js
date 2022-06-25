@@ -1,6 +1,6 @@
 'use strict'
 
-const { db, models: { User, Project } } = require('../server/db')
+const { db, models: { User, Project, Task, Comment } } = require('../server/db')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -11,19 +11,62 @@ async function seed() {
   console.log('db synced!')
 
   // Creating Users
-  const users = await Promise.all([
-    User.create({ firstName: 'Open', lastName: 'Belch', username: 'openbelch', password: '123', role: 'admin', email: 'openbelch@gmail.com' }),
-    User.create({ firstName: 'Shadowy', lastName: 'Toucan', username: 'shadowytoucan', password: '123', role: 'general', email: 'shadowytoucan@gmail.com' }),
-  ])
+  const openbelch = await User.create({ firstName: 'Open', lastName: 'Belch', username: 'openbelch', password: '123', role: 'admin', email: 'openbelch@gmail.com' })
+  const shadowytoucan = await User.create({ firstName: 'Shadowy', lastName: 'Toucan', username: 'shadowytoucan', password: '123', role: 'general', email: 'shadowytoucan@gmail.com' })
+  const liox = await User.create({ firstName: 'Leo', lastName: 'Perry', username: 'liox', password: '123', role: 'general', email: 'liox@gmail.com' })
+  const sperrone = await User.create({ firstName: 'Sarah', lastName: 'Perrone', username: 'sperrone', password: '123', role: 'admin', email: 'sperrone@gmail.com' })
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1]
-    }
-  }
+  const createFolio = await Project.create({ title: 'Create Portfolio Website', startDate: new Date(2022, 8, 15), dueDate: new Date(2022, 8, 28), lastModifiedBy: 1, assignedBy: 1 })
+  const createTodo = await Project.create({ title: 'Create Todo List App', startDate: new Date(2022, 7, 15), dueDate: new Date(2022, 7, 28), lastModifiedBy: 1, assignedBy: 1 })
+  const createMarciWeb = await Project.create({ title: 'Edit Marcellos website', startDate: new Date(2022, 7, 15), dueDate: new Date(2022, 7, 28), lastModifiedBy: 1, assignedBy: 4 }) //numOfTasks: 2,
+
+  const createDatabase = await Task.create({ priority: 'high', status: 'open', description: 'Create database', createdBy: 1 })
+  const editCSS = await Task.create({ priority: 'low', status: 'open', description: 'Edit CSS', createdBy: 1 })
+  const addComponents = await Task.create({ priority: 'normal', status: 'closed', description: 'Add components', createdBy: 1 })
+  const deploySite = await Task.create({ priority: 'critical', status: 'open', description: 'Deploy Website', createdBy: 1 })
+
+  const databaseComment = await Comment.create({ text: 'I will work on this today' })
+  const CSSComment = await Comment.create({ text: 'Do you want me to get started on the dashboard?', createdAt: new Date(2022, 7, 15) })
+  const CSSCommentReply = await Comment.create({ text: 'Yes please', createdAt: new Date(2022, 7, 16) })
+
+  await createFolio.setUser(sperrone)
+  await createTodo.setUser(sperrone)
+  await createMarciWeb.setUser(liox)
+
+  await createDatabase.setProject(createFolio)
+  await createDatabase.setUser(sperrone)
+  await editCSS.setProject(createMarciWeb)
+  await editCSS.setUser(liox)
+  await addComponents.setProject(createFolio)
+  await addComponents.setUser(shadowytoucan)
+  await deploySite.setProject(createMarciWeb)
+  await deploySite.setUser(shadowytoucan)
+
+  await databaseComment.setUser(sperrone)
+  await databaseComment.setTask(createDatabase)
+  await CSSComment.setUser(liox)
+  await CSSComment.setTask(editCSS)
+  await CSSCommentReply.setUser(sperrone)
+  await CSSCommentReply.setTask(editCSS)
+
+  await createFolio.update({ numOfTasks: await createFolio.countTasks() })
+  await createFolio.save()
+  await createTodo.update({ numOfTasks: await createTodo.countTasks() })
+  await createTodo.save()
+  await createMarciWeb.update({ numOfTasks: await createMarciWeb.countTasks() })
+  await createMarciWeb.save()
+
+  console.log('Project: ', Object.keys(Project.prototype))
+  console.log('Comment: ', Object.keys(Comment.prototype))
+
+  // console.log(`seeded ${users.length} users`)
+  // console.log(`seeded successfully`)
+  // return {
+  //   users:
+  //     cody: users[0],
+  //     murphy: users[1]
+  //   }
+  // }
 }
 
 /*
