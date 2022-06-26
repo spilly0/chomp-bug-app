@@ -3,7 +3,7 @@ const db = require('../db')
 
 const Task = db.define('task', {
   priority: {
-    type: Sequelize.ENUM('low', 'normal', 'high', 'critical'),
+    type: Sequelize.ENUM('low', 'high', 'critical'),
     allowNull: false
   },
   status: {
@@ -14,6 +14,9 @@ const Task = db.define('task', {
   },
   createdBy: {
     type: Sequelize.INTEGER
+  },
+  dueDate: {
+    type: Sequelize.DATEONLY
   }
 })
 

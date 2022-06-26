@@ -3,7 +3,10 @@ import { connect } from 'react-redux'
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
-import Projects from './components/Projects'
+import AllProjects from './components/AllProjects'
+import IndividualProject from './components/IndividualProject'
+import AllTasks from './components/AllTasks'
+import IndividualTask from './components/IndividualTask'
 import { me } from './store'
 
 /**
@@ -21,16 +24,21 @@ class Routes extends Component {
       <div >
         {isLoggedIn ? (
           <Switch>
-            <Route path="/home" component={Home} />
-            <Route path="/projects" component={Projects} />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/projects" component={AllProjects} />
+            <Route exact path="/projects/:id" component={IndividualProject} />
+            <Route exact path='/tasks' component={AllTasks} />
+            <Route exact path='/tasks/:id' component={IndividualTask} />
             <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
-            <Route path='/' exact component={Login} />
+            <Route exact path='/' component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/projects" component={Projects} />
+            <Route path="/projects" component={AllProjects} />
+            <Route exact path='/tasks' component={AllTasks} />
+            <Route exact path='/tasks/:id' component={IndividualTask} />
           </Switch>
         )}
       </div>

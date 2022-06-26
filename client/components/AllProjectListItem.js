@@ -14,17 +14,17 @@ const AllProjectListItem = (props) => {
 
       <td>{project.dueDate}</td>
 
-      <td>{project.user.firstName} {project.user.lastName}</td>
+      <td>{project.user ? (project.user.firstName + ' ' + project.user.lastName) : ''}</td>
 
       <td >
-        <Button variant="primary" size="sm">
-          Edit
+        <Button href={`/projects/${project.id}`} variant="primary" size="sm" style={{ marginRight: "15px" }}>
+          View
         </Button>
         <Button variant="primary" size="sm">
           Delete
         </Button>
       </td>
-    </tr>
+    </tr >
   )
 }
 
