@@ -1,11 +1,13 @@
 const router = require('express').Router()
-const { models: { Project, Task } } = require('../db')
+const { models: { Project, Task, User } } = require('../db')
 module.exports = router
 
 // GET route - serve up all projects
 router.get('/', async (req, res, next) => {
   try {
     const projects = await Project.findAll({
+      include:
+        { model: User }
     })
     res.json(projects)
   } catch (error) {

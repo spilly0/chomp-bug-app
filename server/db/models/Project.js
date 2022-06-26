@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const moment = require('moment')
 
 const Project = db.define('project', {
   title: {
@@ -7,10 +8,16 @@ const Project = db.define('project', {
     allowNull: false
   },
   startDate: {
-    type: Sequelize.DATE
+    type: Sequelize.DATEONLY,
+    get: function () {
+      return moment(this.getDataValue('startDate')).format('MM.DD.YYYY')
+    }
   },
   dueDate: {
-    type: Sequelize.DATE
+    type: Sequelize.DATEONLY,
+    get: function () {
+      return moment(this.getDataValue('dueDate')).format('MM.DD.YYYY')
+    }
   },
   lastModifiedBy: {
     type: Sequelize.INTEGER

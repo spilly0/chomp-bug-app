@@ -75,3 +75,6 @@ Database Setup
 
 
 Now, you should be deployed!
+
+
+Used https://momentjs.com/ Moments library to extract the time

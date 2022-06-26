@@ -16,8 +16,8 @@ async function seed() {
   const liox = await User.create({ firstName: 'Leo', lastName: 'Perry', username: 'liox', password: '123', role: 'general', email: 'liox@gmail.com' })
   const sperrone = await User.create({ firstName: 'Sarah', lastName: 'Perrone', username: 'sperrone', password: '123', role: 'admin', email: 'sperrone@gmail.com' })
 
-  const createFolio = await Project.create({ title: 'Create Portfolio Website', startDate: new Date(2022, 8, 15), dueDate: new Date(2022, 8, 28), lastModifiedBy: 1, assignedBy: 1 })
-  const createTodo = await Project.create({ title: 'Create Todo List App', startDate: new Date(2022, 7, 15), dueDate: new Date(2022, 7, 28), lastModifiedBy: 1, assignedBy: 1 })
+  const createFolio = await Project.create({ title: 'Create Portfolio Website', startDate: new Date(2022, 7, 15), dueDate: new Date(2022, 7, 28), lastModifiedBy: 1, assignedBy: 1 })
+  const createTodo = await Project.create({ title: 'Create Todo List App', startDate: new Date(2022, 6, 15), dueDate: new Date(2022, 6, 28), lastModifiedBy: 1, assignedBy: 1 })
   const createMarciWeb = await Project.create({ title: 'Edit Marcellos website', startDate: new Date(2022, 7, 15), dueDate: new Date(2022, 7, 28), lastModifiedBy: 1, assignedBy: 4 }) //numOfTasks: 2,
 
   const createDatabase = await Task.create({ priority: 'high', status: 'open', description: 'Create database', createdBy: 1 })
