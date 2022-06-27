@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchTasks } from '../store/tasks'
-import { Card, Col, Container, Row, Table } from 'react-bootstrap'
+import { Button, Card, Col, Container, Row, Table } from 'react-bootstrap'
 import AllTasksListItem from './AllTasksListItem'
 
 class AllTasks extends React.Component {
@@ -19,10 +19,17 @@ class AllTasks extends React.Component {
           <Col md="12">
             <Card className="card-plain table-plain-bg">
               <Card.Header>
-                <Card.Title as="h4">Tasks</Card.Title>
-                <p className="card-category">
-                  Organization's Tasks
-                </p>
+                <Row className="d-flex justify-content-between">
+                  <Col>
+                    <Card.Title as="h4">Tasks</Card.Title>
+                    <p className="card-category">
+                      Organization's Tasks
+                    </p>
+                  </Col>
+                  <Col className="d-inline-flex justify-content-end">
+                    <Button className="align-self-center">Add Task</Button>
+                  </Col>
+                </Row>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
                 <Table className="table-hover table-striped">

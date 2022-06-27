@@ -21,6 +21,9 @@ router.get('/:id', async (req, res, next) => {
       {
         include: [{
           model: Comment,
+          where: {
+            taskId: req.params.id
+          },
           include: {
             model: User
           }

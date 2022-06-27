@@ -29,6 +29,7 @@ async function seed() {
   const databaseComment = await Comment.create({ text: 'I will work on this today' })
   const CSSComment = await Comment.create({ text: 'Do you want me to get started on the dashboard?', createdAt: new Date(2022, 7, 15) })
   const CSSCommentReply = await Comment.create({ text: 'Yes please', createdAt: new Date(2022, 7, 16) })
+  const CSSComment3 = await Comment.create({ text: 'Create a responsice sidebar', createdAt: new Date(2022, 7, 17) })
 
   await createFolio.setUser(sperrone)
   await createTodo.setUser(sperrone)
@@ -49,6 +50,8 @@ async function seed() {
   await CSSComment.setTask(editCSS)
   await CSSCommentReply.setUser(sperrone)
   await CSSCommentReply.setTask(editCSS)
+  await CSSComment3.setUser(sperrone)
+  await CSSComment3.setTask(editCSS)
 
   await createFolio.update({ numOfTasks: await createFolio.countTasks() })
   await createFolio.save()

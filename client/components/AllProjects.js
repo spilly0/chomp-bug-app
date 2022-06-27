@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchProjects } from '../store/projects'
-import { Card, Col, Container, Row, Table } from 'react-bootstrap'
+import { Accordion, Button, Card, Col, Container, Row, Table } from 'react-bootstrap'
 import AllProjectListItem from './AllProjectListItem'
 
 class AllProjects extends React.Component {
@@ -19,10 +19,17 @@ class AllProjects extends React.Component {
           <Col md="12">
             <Card className="card-plain table-plain-bg">
               <Card.Header>
-                <Card.Title as="h4">Projects</Card.Title>
-                <p className="card-category">
-                  Organization's Projects
-                </p>
+                <Row className="d-flex justify-content-between">
+                  <Col>
+                    <Card.Title as="h4">Projects</Card.Title>
+                    <p className="card-category">
+                      Organization's Projects
+                    </p>
+                  </Col>
+                  <Col className="d-inline-flex justify-content-end">
+                    <Button className="align-self-center">Add Project</Button>
+                  </Col>
+                </Row>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
                 <Table className="table-hover table-striped">
@@ -48,6 +55,7 @@ class AllProjects extends React.Component {
                     }
                   </tbody>
                 </Table>
+
               </Card.Body>
             </Card>
           </Col>
@@ -63,10 +71,31 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    getProjects: () => dispatch(fetchProjects())
+    getProjects: () => dispatch(fetchProjects()),
+    // sendProject: (project) => dispatch(sendCreateProject(project, history))
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProjects)
+
+{/* <Accordion defaultActiveKey="0">
+<Card>
+  <Card.Header>
+    <Button>Click me</Button>
+    <ContextAwareToggle eventKey="0">Click me!</ContextAwareToggle>
+  </Card.Header>
+  <Accordion.Collapse eventKey="0">
+    <Card.Body>Hello! I'm the body</Card.Body>
+  </Accordion.Collapse>
+</Card>
+<Card>
+  <Card.Header>
+    <ContextAwareToggle eventKey="1">Click me!</ContextAwareToggle>
+  </Card.Header>
+  <Accordion.Collapse eventKey="1">
+    <Card.Body>Hello! I'm another body</Card.Body>
+  </Accordion.Collapse>
+</Card>
+</Accordion> */}

@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { fetchTask } from '../store/task'
+import CommentsSection from './CommentsSection'
 import {
   Card,
   Col,
@@ -16,11 +17,10 @@ class IndividualTask extends React.Component {
   }
 
   render() {
-    console.log(this.props.task)
     const task = this.props.task
     let comments = this.props.task.comments
-    comments && comments.length > 1 ? comments.sort((a, b) => new Date(b.date) - new Date(a.date)) : comments
-    console.log(comments)
+    comments && comments.length > 1 ? comments.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)) : comments
+
     return (
       <Container>
         <Container fluid>
@@ -46,7 +46,7 @@ class IndividualTask extends React.Component {
                         </Col>
                         <Col md={5}>
                           <label htmlFor="ex2">Due Date</label>
-                          <input className="form-control" id="ex2" type="date" defaultValue={task.createdAt} />
+                          <input className="form-control" id="ex2" type="date" defaultValue={task.dueDate} />
                         </Col>
                       </Row>
                       <Row style={{ maxWidth: "100%" }}>
@@ -78,25 +78,15 @@ class IndividualTask extends React.Component {
         </Container >
         <Container style={{ paddingTop: "20px" }}>
           <Row>
-            <Col md="12">
+            <Col md="8">
               <Card>
                 <Card.Header>
                   <Card.Title as="h4">Comments</Card.Title>
                 </Card.Header>
-                <Card.Body>
-                  This is some text within a card body.
-                </Card.Body>
                 <Container>
-                  <Row>
-                    <div className="row justify-content-end">
-                      <div className="col-4">
-                        One of two columns
-                      </div>
-                      <div className="col-4">
-                        One of two columns
-                      </div>
-                    </div>
-                  </Row>
+                  {comments ? comments.map(comment => (
+                    <CommentsSection comment={comment} key={comment.id} />
+                  )) : " No comments"}
                 </Container>
               </Card>
             </Col>

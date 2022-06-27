@@ -1,12 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchProject } from '../store/project'
+import AllTasksListItem from './AllTasksListItem'
 import {
   Card,
   Col,
   Container,
   Form,
-  Row
+  Row,
+  Table
 } from "react-bootstrap";
 
 class IndividualProject extends React.Component {
@@ -18,6 +20,7 @@ class IndividualProject extends React.Component {
   render() {
     console.log(this.props.project)
     const project = this.props.project
+    const tasks = this.props.project.tasks
     return (
       <Container>
         <Container fluid>
@@ -72,8 +75,33 @@ class IndividualProject extends React.Component {
             <Col md="12">
               <Card>
                 <Card.Header>
-                  <Card.Title as="h4">Tasks... Needs work</Card.Title>
+                  <Card.Title as="h4">Tasks</Card.Title>
                 </Card.Header>
+                <Card.Body className="table-full-width table-responsive px-0">
+                  <Table className="table-hover table-striped">
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Description</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Assigned To</th>
+                        <th>Edit/Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {tasks ?
+                        tasks.map(task => (
+                          <AllTasksListItem key={task.id} task={task} />
+                        ))
+                        :
+                        <tr>
+                          <td>There are currently no tasks</td>
+                        </tr>
+                      }
+                    </tbody>
+                  </Table>
+                </Card.Body>
               </Card>
             </Col>
           </Row>
